@@ -1,0 +1,10 @@
+S1ReentrantLock:
+如果不加锁，两个线程中循环体j执行的有快有慢，有可能是两个线程无序改变成员变量i的值。i++分拆成 get i; x = i + 1; set i x;
+get i;      0     get i;        0
+x = i + 1;  1     [slow...]     0
+set i x;    1     [slow...]     0
+get i;		1	  x = i + 1;    1
+[slow...]   1     [slow...]     1
+x = i + 1;  2     [slow...]     1
+set i x;    2     [slow...]     1
+get i;    1? 2?   set i x;      1
