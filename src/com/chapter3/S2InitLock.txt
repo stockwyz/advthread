@@ -1,0 +1,5 @@
+ReentrantLock优点:
+1.中断响应.用lock.lockInterruptibly方法阻塞时,当前线程被调用interrupt方法,则当前线程会从lockInterruptibly方法中抛出
+  InterruptedException
+2.限时等待.用lock.tryLock(long, TimeUnit)方法可以实现在锁上的限时等待.参见S2InitLock.java
+  用lock.tryLock()方法尝试获得锁,若没有获得,则立即返回
