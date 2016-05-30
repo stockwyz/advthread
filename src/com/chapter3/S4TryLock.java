@@ -14,31 +14,65 @@ public class S4TryLock implements Runnable {
 	@Override
 	public void run() {
 		if (lock == 1) {
-			if (lock1.tryLock()) {
-				try {
+			while (true) {
+				if (lock1.tryLock()) {
 					try {
-						Thread.sleep(500L);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					
-					if(lock2.tryLock()) {
 						try {
-							System.out.println("lock:1 is done!");
-						} finally {
-							lock2.unlock();
+							Thread.sleep(900L);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
 						}
+
+						if (lock2.tryLock()) {
+							try {
+								System.out.println("lock:1 is done!");
+							} finally {
+								lock2.unlock();
+							}
+						}
+					} finally {
+						lock1.unlock();
 					}
-				} finally {
-					lock1.unlock();
 				}
 			}
-
 		} else {
-			if(lock2.tryLock()) {
-				
+			while (true) {
+				if (lock2.tryLock()) {
+					try {
+						try {
+							Thread.sleep(1000L);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+						if (lock1.tryLock()) {
+							try {
+								System.out.println("lock2 is done");
+							} finally {
+								lock1.unlock();
+							}
+						}
+					} finally {
+						lock2.unlock();
+					}
+				}
 			}
 		}
 	}
-
+	
+	public static void main(String[] args) {
+		S4TryLock lock1 = new S4TryLock(1);
+		S4TryLock lock2 = new S4TryLock(2);
+		Thread t1 = new Thread(lock1);
+		Thread t2 = new Thread(lock2);
+		t1.start();
+		t2.start();
+		try {
+			t1.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

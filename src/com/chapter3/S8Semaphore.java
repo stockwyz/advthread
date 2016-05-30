@@ -22,7 +22,7 @@ public class S8Semaphore implements Runnable {
 	public static void main(String[] args) {
 		ExecutorService service = Executors.newFixedThreadPool(20);
 		S8Semaphore s = new S8Semaphore();
-		for(int i = 1; i < 20; i++) {
+		for(int i = 1; i <= 20; i++) {
 			service.submit(s);
 		}
 	}

@@ -1,0 +1,5 @@
+ReentrantLock上的condition中await, signal方法与object.wait(), object.notify()方法一样，调用前要获得锁.
+lock.lock();
+condition.await();  / condition.signal();
+lock.unlock();
+

@@ -3,3 +3,4 @@ ReentrantLock优点:
   InterruptedException
 2.限时等待.用lock.tryLock(long, TimeUnit)方法可以实现在锁上的限时等待.参见S2InitLock.java
   用lock.tryLock()方法尝试获得锁,若没有获得,则立即返回
+3.重入锁的第三个优点是，通过构造函数的参数控制锁的相对公平。
