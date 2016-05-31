@@ -1,0 +1,4 @@
+1.acquire与release配对使用以获得执行许可和释放许可
+2.release多次调用,相当于增加Semaphore的许可.
+3.Semaphore相当于商场保安限制大妈抢购,一次只放入N个人(线程)去抢购(执行),
+     从出口出一个人(release)才能再放入一个人(acquire)，任何时刻总保持N人抢购(执行)

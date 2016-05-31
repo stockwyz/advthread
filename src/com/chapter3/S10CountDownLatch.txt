@@ -1,0 +1,2 @@
+CountDownLatch像火箭倒计时,每检查一项，就countDown()一次。
+当countDown掉构造函数中指定的总数后,在CountDownLatch上await的线程被许可继续执行
